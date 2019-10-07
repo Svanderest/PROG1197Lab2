@@ -74,7 +74,7 @@ namespace PROG1197Lab2
             };
             ChildForms.Add(f.Text, f);
             f.Show();
-            f.FormClosed += ChildFormClosed;
+            f.FormClosed += (sndr,ev) => { ChildForms.Remove(f.Text); };
         }
 
         private void ChildFormClosed(object sender, FormClosedEventArgs e)
