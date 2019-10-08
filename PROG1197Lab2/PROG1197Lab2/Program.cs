@@ -16,7 +16,7 @@ namespace PROG1197Lab2
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FrmParent());
+            Application.Run(new Splash());
         }
     }
 }

@@ -59,8 +59,7 @@ namespace PROG1197Lab2
         private void CreateNewToolStripMenuItem_Click(object sender, EventArgs e)
         {
             NameForm n = new NameForm { MdiParent = this };
-            n.FormClosed += CreateChildForm;
-            n.Deactivate += (sndr, ea) => { n.Activate(); };
+            n.FormClosed += CreateChildForm;            
             n.Show();
         }        
 
