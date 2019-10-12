@@ -16,7 +16,7 @@ namespace PROG1197Lab2
         public FrmParent()
         {
             InitializeComponent();
-            ChildForms = new Dictionary<string, Form>();
+            ChildForms = new Dictionary<string, Form>();            
         }
 
         private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -27,7 +27,7 @@ namespace PROG1197Lab2
 
         private void AboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            new AboutForm ().ShowDialog();
+            new AboutForm().ShowDialog();
         }        
 
         private void ColourToolStripMenuItem_Click(object sender, EventArgs e)
@@ -73,7 +73,33 @@ namespace PROG1197Lab2
             };
             ChildForms.Add(f.Text, f);
             f.Show();
-            f.FormClosed += (sndr,ev) => { ChildForms.Remove(f.Text); };
-        }        
+            f.FormClosed += (sndr,ev) => { ChildForms.Remove(f.Text); };            
+            f.Activated += (sndr, ev) => { tsActive.Text = $"Active Children: {f.Text}"; };
+        }
+
+        private void ListAllToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new ListAllForm(ChildForms).ShowDialog();
+        }
+
+        private void CloseAllToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ChildForms.Values.ToList().ForEach(f => f.Close());            
+        }
+
+        private void CascadeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Point p = new Point(0, 0);
+            foreach(Form f in ChildForms.Values)
+            {
+                f.Location = p;
+                p.X += f.Width;
+                if(p.X > Width)
+                {
+                    p.X = 0;
+                    p.Y = ChildForms.Values.Where(m => m.Location.Y == p.Y).Max(m => m.Height);
+                }
+            }
+        }
     }
 }
